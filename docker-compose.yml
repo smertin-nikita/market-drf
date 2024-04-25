@@ -7,20 +7,17 @@ services:
       context: .
       dockerfile: docker/build/Dockerfile
       target: runner-image
+      args:
+        - DEBUG=true
+        - PG_USER=postgres
+        - PG_PASSWORD=django
+        - PG_NAME=postgres
+        - PG_HOST=db
+        - PG_PORT=5432
     platform: linux/amd64
-#    command: sh -c "pwd && cd bin && ls && cat manage.py"
-    command: sh -c "python src/backend/market/manage.py migrate && python src/backend/market/manage.py runserver 0.0.0.0:8000"
-#    command: ["python"]
     tty: true
     volumes:
       - /src/backend/market:/src/backend/market
-    environment:
-      - DEBUG=true
-      - PG_USER=postgres
-      - PG_PASSWORD=django
-      - PG_NAME=postgres
-      - PG_HOST=db
-      - PG_PORT=5432
     ports:
       - "8000:8000"
     depends_on:
@@ -38,9 +35,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-#      - POSTGRES_USER=django_user
       - POSTGRES_PASSWORD=django
-#      - POSTGRES_DB=market_db_dev
 
   backend-worker:
     build:

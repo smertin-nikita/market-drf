@@ -51,3 +51,25 @@ ENV APPLICATION_PATH=/home/backend/src
 ENV DJANGO_SETTINGS_MODULE=base.settings
 
 ENV PYTHONUNBUFFERED 1
+
+ARG DEBUG=false
+
+ARG DB_TYPE=sqlite3
+ARG PG_USER
+ARG PG_PASSWORD
+ARG PG_NAME
+ARG PG_HOST
+ARG PG_PORT
+
+ENV DEBUG=${DEBUG}
+ENV DB_TYPE=${DB_TYPE}
+ENV PG_USER=${PG_USER}
+ENV PG_PASSWORD=${PG_PASSWORD}
+ENV PG_NAME=${PG_NAME}
+ENV PG_HOST=${PG_HOST}
+ENV PG_PORT=${PG_PORT}
+
+EXPOSE 8000
+
+CMD ["python", "src/backend/market/manage.py", "migrate"]
+CMD ["python", "src/backend/market/manage.py", "runserver", "0.0.0.0:8000"]

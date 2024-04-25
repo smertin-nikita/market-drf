@@ -101,7 +101,7 @@ WSGI_APPLICATION = 'base.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-if 'pytest' in sys.argv[0]:
+if 'pytest' in sys.argv[0] or env('DB_TYPE') == 'sqlite3':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
