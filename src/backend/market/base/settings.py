@@ -166,8 +166,10 @@ REST_FRAMEWORK = {
         'shop_import': '10/min',
         'shop_export': '10/min',
         'dj_rest_auth': '100/min'
-    }
-
+    },
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ]
 }
 
 
