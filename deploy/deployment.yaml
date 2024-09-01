@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-api
+  namespace: app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend-api
+  template:
+    metadata:
+      labels:
+        app: backend-api
+    spec:
+      containers:
+        - image: nekitsmertin/market-drf:1.0
+          name: backend-api
+          readinessProbe:
+            httpGet:
+              port: 8000
+              path: /health
+
